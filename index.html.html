@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Siyad S — Graphic Designer & AI Creator</title>
+<meta name="description" content="Siyad S — Graphic Designer, Video Editor & AI Creator based in Fujairah, UAE."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080808;
+  --surface:#111111;
+  --surface2:#181818;
+  --border:rgba(255,255,255,0.07);
+  --text:#f0ede8;
+  --muted:#666;
+  --accent:#c8f542;
+  --accent2:#ff6b35;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Syne',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+.cursor{
+  width:10px;height:10px;
+  background:var(--accent);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+}
+.cursor-ring{
+  width:36px;height:36px;
+  border:1px solid rgba(200,245,66,.4);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all .18s ease;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent)}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.4rem 3rem;
+  border-bottom:1px solid transparent;
+  transition:border-color .4s,background .4s,backdrop-filter .4s;
+}
+nav.scrolled{
+  background:rgba(8,8,8,.9);
+  backdrop-filter:blur(20px);
+  border-color:var(--border);
+}
+.nav-logo{
+  font-family:'Instrument Serif',serif;
+  font-size:1.5rem;font-style:italic;
+  color:var(--text);text-decoration:none;
+}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{
+  font-size:.72rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color .3s;
+}
+.nav-links a:hover{color:var(--accent)}
+.nav-wa{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.3rem;
+  background:#25D366;
+  color:#000!important;
+  border-radius:2px;
+  font-size:.68rem!important;
+  transition:opacity .3s!important;
+}
+.nav-wa:hover{opacity:.85}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:8rem 3rem 4rem;
+  gap:4rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(200,245,66,.06) 0%,transparent 70%);
+  top:-100px;right:-100px;border-radius:50%;
+  animation:orbFloat 8s ease-in-out infinite;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(255,107,53,.05) 0%,transparent 70%);
+  bottom:0;left:10%;border-radius:50%;
+  animation:orbFloat 10s ease-in-out infinite reverse;
+}
+@keyframes orbFloat{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-40px) scale(1.05)}
+}
+.hero-left{position:relative;z-index:2}
+
+.hero-eyebrow{
+  display:flex;align-items:center;gap:.8rem;
+  font-family:'Fira Code',monospace;
+  font-size:.7rem;color:var(--accent);
+  margin-bottom:1.8rem;
+  opacity:0;animation:fadeUp .8s .1s ease forwards;
+}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--accent)}
+
+.avail-dot{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Fira Code',monospace;
+  font-size:.65rem;color:#4ade80;
+  background:rgba(74,222,128,.08);
+  border:1px solid rgba(74,222,128,.2);
+  padding:.3rem .8rem;border-radius:2px;
+  margin-left:.5rem;
+}
+.avail-dot::before{
+  content:'';width:6px;height:6px;
+  border-radius:50%;background:#4ade80;
+  animation:pulse 1.8s ease infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.4;transform:scale(1.4)}
+}
+
+.hero-name{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(3.5rem,6vw,6rem);
+  font-style:italic;line-height:1;
+  margin-bottom:.5rem;
+  opacity:0;animation:fadeUp .8s .2s ease forwards;
+}
+.hero-role{
+  font-size:clamp(.9rem,1.8vw,1.3rem);
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--muted);
+  margin-bottom:2rem;
+  opacity:0;animation:fadeUp .8s .3s ease forwards;
+}
+.hero-role span{color:var(--accent)}
+.hero-bio{
+  font-size:.85rem;line-height:1.9;
+  color:rgba(240,237,232,.5);
+  max-width:420px;margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .8s .4s ease forwards;
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s .5s ease forwards;
+}
+
+.btn-wa{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:.9rem 2rem;
+  background:#25D366;color:#000;
+  font-family:'Syne',sans-serif;
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;border-radius:2px;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 0 30px rgba(37,211,102,.2);
+}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(37,211,102,.35)}
+
+.btn-glow{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:.9rem 2rem;
+  background:var(--accent);color:#000;
+  font-family:'Syne',sans-serif;
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;border-radius:2px;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 0 30px rgba(200,245,66,.2);
+}
+.btn-glow:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(200,245,66,.4)}
+
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:.9rem 2rem;
+  background:transparent;color:var(--text);
+  border:1px solid var(--border);
+  font-family:'Syne',sans-serif;
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;border-radius:2px;
+  transition:border-color .3s,color .3s;
+}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* PHOTO */
+.hero-right{
+  position:relative;z-index:2;
+  display:flex;justify-content:center;align-items:center;
+  opacity:0;animation:fadeRight .9s .3s ease forwards;
+}
+.photo-card{position:relative;width:320px}
+.photo-card::before{
+  content:'';position:absolute;inset:-2px;
+  background:linear-gradient(135deg,var(--accent) 0%,transparent 50%,var(--accent2) 100%);
+  border-radius:4px;z-index:-1;opacity:.4;
+}
+.photo-wrap{
+  width:100%;aspect-ratio:3/4;
+  overflow:hidden;border-radius:3px;
+  background:var(--surface2);position:relative;
+}
+.photo-wrap img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  filter:grayscale(15%) contrast(1.05);
+  transition:filter .4s,transform .4s;
+}
+.photo-wrap:hover img{filter:grayscale(0%) contrast(1.1);transform:scale(1.03)}
+.photo-badge{
+  position:absolute;bottom:1.2rem;left:1.2rem;
+  background:rgba(8,8,8,.88);backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  padding:.7rem 1rem;border-radius:3px;
+  font-family:'Fira Code',monospace;font-size:.62rem;color:var(--muted);
+}
+.photo-badge strong{
+  display:block;color:var(--accent);
+  font-size:.8rem;font-family:'Syne',sans-serif;font-weight:700;
+}
+.photo-stats{
+  position:absolute;top:1.2rem;right:-4.5rem;
+  display:flex;flex-direction:column;gap:.8rem;
+}
+.stat-pill{
+  background:var(--surface);border:1px solid var(--border);
+  padding:.7rem 1rem;border-radius:3px;text-align:center;white-space:nowrap;
+}
+.stat-pill-num{
+  font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;
+  color:var(--accent);line-height:1;
+}
+.stat-pill-label{
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);margin-top:.2rem;
+}
+
+/* MARQUEE */
+.marquee-section{
+  overflow:hidden;padding:.9rem 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-item{
+  font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);padding:0 2.5rem;flex-shrink:0;
+}
+.marquee-item.ac{color:var(--accent)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.section{padding:7rem 3rem}
+.section-eyebrow{
+  font-family:'Fira Code',monospace;font-size:.65rem;
+  color:var(--accent);letter-spacing:.2em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;
+}
+.section-eyebrow::before{content:'//';opacity:.5}
+.section-title{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,4vw,3.8rem);
+  font-style:italic;line-height:1.1;margin-bottom:.5rem;
+}
+.section-title span{
+  color:var(--accent);font-style:normal;
+  font-family:'Syne',sans-serif;font-weight:800;
+}
+
+/* PROJECTS */
+.projects-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem}
+.projects-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.proj{
+  background:var(--bg);overflow:hidden;position:relative;
+  display:block;text-decoration:none;color:var(--text);
+  transition:background .3s;
+}
+.proj:hover{background:var(--surface)}
+.proj-large{grid-column:1/3;grid-row:1/2}
+.proj-thumb{width:100%;overflow:hidden;position:relative}
+.proj-large .proj-thumb{height:340px}
+.proj:not(.proj-large) .proj-thumb{height:220px}
+.proj-thumb img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94),filter .4s;
+  filter:brightness(.85) saturate(.9);
+}
+.proj:hover .proj-thumb img{transform:scale(1.06);filter:brightness(.95) saturate(1.1)}
+.proj-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.7) 0%,transparent 60%)}
+.proj-tag{
+  position:absolute;top:1rem;left:1rem;
+  font-family:'Fira Code',monospace;font-size:.6rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  background:rgba(8,8,8,.7);backdrop-filter:blur(8px);
+  border:1px solid var(--border);padding:.3rem .7rem;border-radius:2px;
+  color:var(--accent);
+}
+.proj-body{
+  padding:1.4rem 1.6rem;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--border);
+}
+.proj-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;line-height:1.3}
+.proj-cat{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;font-family:'Fira Code',monospace}
+.proj-arrow{
+  width:38px;height:38px;border:1px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:border-color .3s,background .3s,transform .3s;
+  font-size:1rem;color:var(--muted);
+}
+.proj:hover .proj-arrow{border-color:var(--accent);background:var(--accent);color:#000;transform:rotate(-45deg)}
+.view-all{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .3s,gap .3s;
+}
+.view-all:hover{color:var(--accent);gap:.8rem}
+
+/* SERVICES */
+.services-section{
+  padding:7rem 3rem;background:var(--surface);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);margin-top:3.5rem;border:1px solid var(--border);
+}
+.service-card{
+  background:var(--surface);padding:2.5rem;
+  transition:background .3s;position:relative;overflow:hidden;
+}
+.service-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .4s ease;
+}
+.service-card:hover{background:var(--surface2)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-num{font-family:'Fira Code',monospace;font-size:.65rem;color:var(--accent);opacity:.5;margin-bottom:1.5rem}
+.service-icon{font-size:2.2rem;margin-bottom:1.2rem;display:block}
+.service-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.8rem}
+.service-desc{font-size:.78rem;line-height:1.8;color:var(--muted)}
+
+/* ABOUT */
+.about-section{
+  padding:7rem 3rem;display:grid;
+  grid-template-columns:1fr 1fr;gap:6rem;align-items:center;
+}
+.about-left p{font-size:.85rem;line-height:1.95;color:rgba(240,237,232,.55);margin-bottom:1.2rem}
+.about-meta{display:flex;flex-direction:column;gap:.6rem;margin-top:2rem}
+.about-meta-row{
+  display:flex;align-items:flex-start;gap:1rem;
+  font-family:'Fira Code',monospace;font-size:.7rem;color:var(--muted);
+}
+.about-meta-row span:first-child{color:var(--accent);width:90px;flex-shrink:0}
+.skills-wrap{margin-top:2.5rem}
+.skills-label{font-family:'Fira Code',monospace;font-size:.62rem;color:var(--accent);letter-spacing:.2em;margin-bottom:1rem}
+.skills-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.stag{
+  font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--border);padding:.4rem .9rem;border-radius:2px;
+  color:var(--muted);transition:border-color .3s,color .3s;cursor:default;
+}
+.stag:hover{border-color:var(--accent);color:var(--accent)}
+.about-photo-wrap{
+  position:relative;aspect-ratio:1;max-width:420px;
+}
+.about-photo-wrap::after{
+  content:'';position:absolute;bottom:-20px;right:-20px;
+  width:100%;height:100%;border:1px solid var(--border);border-radius:3px;z-index:-1;
+}
+.about-photo-wrap img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  border-radius:3px;filter:grayscale(20%);transition:filter .4s;
+}
+.about-photo-wrap:hover img{filter:grayscale(0%)}
+.about-photo-label{
+  position:absolute;bottom:-3.5rem;left:0;
+  font-family:'Fira Code',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.1em;
+}
+
+/* CONTACT */
+.contact-section{
+  padding:8rem 3rem;text-align:center;
+  position:relative;overflow:hidden;
+  border-top:1px solid var(--border);
+}
+.contact-bg{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(6rem,18vw,18rem);
+  font-style:italic;color:transparent;
+  -webkit-text-stroke:1px rgba(200,245,66,.04);
+  white-space:nowrap;user-select:none;pointer-events:none;line-height:1;
+}
+.contact-section .section-eyebrow{justify-content:center;margin-bottom:1.5rem}
+.contact-section .section-title{margin-bottom:.8rem}
+.contact-section>p{
+  font-size:.82rem;line-height:1.9;color:var(--muted);
+  margin-bottom:3rem;position:relative;
+}
+
+/* CONTACT CARDS */
+.contact-cards{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;
+  position:relative;margin-bottom:2.5rem;
+}
+.contact-card{
+  display:inline-flex;align-items:center;gap:.8rem;
+  padding:1rem 1.8rem;
+  border:1px solid var(--border);
+  border-radius:3px;
+  text-decoration:none;color:var(--text);
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  transition:border-color .3s,color .3s,transform .2s,box-shadow .2s;
+  background:var(--surface);
+}
+.contact-card:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.contact-card.wa{
+  background:#25D366;border-color:#25D366;color:#000;
+  box-shadow:0 0 30px rgba(37,211,102,.2);
+}
+.contact-card.wa:hover{box-shadow:0 0 50px rgba(37,211,102,.4);color:#000;border-color:#25D366}
+.contact-card.behance{border-color:rgba(18,99,254,.4);color:rgba(240,237,232,.8)}
+.contact-card.behance:hover{border-color:#1263fe;color:#1263fe}
+.contact-card.linkedin{border-color:rgba(10,102,194,.4)}
+.contact-card.linkedin:hover{border-color:#0a66c2;color:#0a66c2}
+.contact-card.insta:hover{border-color:#e1306c;color:#e1306c}
+
+.contact-divider{
+  width:60px;height:1px;background:var(--border);
+  margin:0 auto 2rem;
+}
+.social-row{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;
+  position:relative;
+}
+.social-link{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Fira Code',monospace;
+  font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color .3s;
+}
+.social-link:hover{color:var(--accent)}
+
+/* FOOTER */
+footer{
+  padding:1.5rem 3rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer span{font-family:'Fira Code',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.08em}
+footer span:last-child{color:var(--accent)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;gap:3rem;min-height:auto}
+  .hero-right{order:-1}
+  .photo-card{width:100%;max-width:280px}
+  .photo-stats{display:none}
+  .projects-grid{grid-template-columns:1fr}
+  .proj-large{grid-column:1;grid-row:auto}
+  .services-grid{grid-template-columns:1fr}
+  .about-section{grid-template-columns:1fr;gap:3rem;padding:4rem 1.5rem}
+  .about-photo-wrap{max-width:260px}
+  .about-photo-label{display:none}
+  .section{padding:4rem 1.5rem}
+  .services-section{padding:4rem 1.5rem}
+  .contact-section{padding:5rem 1.5rem}
+  footer{flex-direction:column;gap:.5rem;text-align:center;padding:1.5rem}
+  .projects-header{flex-direction:column;align-items:flex-start;gap:1rem}
+  .contact-cards{flex-direction:column;align-items:center}
+  .contact-card{width:100%;max-width:320px;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Siyad<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://wa.me/971559935126" target="_blank" class="nav-wa">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      Fujairah, UAE
+      <span class="avail-dot">Available Now</span>
+    </div>
+    <h1 class="hero-name">Siyad S</h1>
+    <div class="hero-role">
+      Graphic Designer · <span>Video Editor</span> · AI Creator
+    </div>
+    <p class="hero-bio">
+      I craft visual experiences that move people — bold brand identities, cinematic AI commercials, and scroll-stopping social content. 3 years of professional experience. Based in Fujairah, UAE.
+    </p>
+    <div class="hero-actions">
+      <a href="https://wa.me/971559935126?text=Hi%20Siyad!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." target="_blank" class="btn-wa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Me
+      </a>
+      <a href="https://www.behance.net/siyadsiyu2" target="_blank" class="btn-glow">View Portfolio ↗</a>
+      <a href="https://linktr.ee/s1yadd" target="_blank" class="btn-ghost">All Links</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-card">
+      <div class="photo-wrap">
+        <img
+          src="https://pps.services.adobe.com/api/profile/9C1A06435F9E254C0A495F86@AdobeID/image/d3758512-659a-4a90-9a6e-bbd30d2948cb/276"
+          alt="Siyad S"
+          onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#111;font-family:Instrument Serif,serif;font-style:italic;font-size:6rem;color:rgba(200,245,66,0.15)\'>SS</div>'"
+        />
+      </div>
+      <div class="photo-badge">
+        <strong>Siyad S</strong>
+        Graphic Designer · AI Creator
+      </div>
+      <div class="photo-stats">
+        <div class="stat-pill">
+          <div class="stat-pill-num">3+</div>
+          <div class="stat-pill-label">Years</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-num">2.3K</div>
+          <div class="stat-pill-label">Views</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-num">74</div>
+          <div class="stat-pill-label">Likes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Graphic Design</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">AI Video Creation</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Motion Design</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Brand Identity</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Video Editing</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Social Media Ads</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Packaging Design</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Graphic Design</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">AI Video Creation</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Motion Design</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Brand Identity</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Video Editing</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Social Media Ads</span><span class="marquee-item ac">✦</span>
+    <span class="marquee-item">Packaging Design</span><span class="marquee-item ac">✦</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-eyebrow">Selected Work</div>
+      <h2 class="section-title">Featured <span>Projects</span></h2>
+    </div>
+    <a href="https://www.behance.net/siyadsiyu2" target="_blank" class="view-all">All Projects on Behance →</a>
+  </div>
+
+  <div class="projects-grid reveal">
+    <a class="proj proj-large" href="https://www.behance.net/gallery/247210271/Ramadan-AI-Visual-Reel-Cinematic-Concept" target="_blank">
+      <div class="proj-thumb">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/cd740b247210271.Y3JvcCwxMzgwLDEwODAsMzk2LDA.jpg" alt="Ramadan AI Visual Reel"/>
+        <div class="proj-overlay"></div>
+        <span class="proj-tag">AI Video · 2025</span>
+      </div>
+      <div class="proj-body">
+        <div>
+          <div class="proj-title">Ramadan AI Visual Reel</div>
+          <div class="proj-cat">Cinematic Concept · AI Generated</div>
+        </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+    </a>
+
+    <a class="proj" href="https://www.behance.net/gallery/247097225/Vazha-2-Inspired-Poster-Design-Adobe-Creative-Concept" target="_blank">
+      <div class="proj-thumb">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/7fec2f247097225.Y3JvcCwxMDgwLDg0NCwwLDQ5NA.jpg" alt="Vazha 2 Poster"/>
+        <div class="proj-overlay"></div>
+        <span class="proj-tag">Poster · 2025</span>
+      </div>
+      <div class="proj-body">
+        <div>
+          <div class="proj-title">Vazha 2 Poster Design</div>
+          <div class="proj-cat">Adobe Creative Concept</div>
+        </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+    </a>
+
+    <a class="proj" href="https://www.behance.net/gallery/246267497/AI-Cinematic-Product-Ad-Bake-In" target="_blank">
+      <div class="proj-thumb">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/24fd35246267497.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg" alt="AI Product Ad"/>
+        <div class="proj-overlay"></div>
+        <span class="proj-tag">AI Ad · 2024</span>
+      </div>
+      <div class="proj-body">
+        <div>
+          <div class="proj-title">AI Cinematic Product Ad</div>
+          <div class="proj-cat">Bake In · Commercial</div>
+        </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+    </a>
+
+    <a class="proj" href="https://www.behance.net/gallery/246992505/Modern-Social-Media-Posters-for-OIXO-Brandings" target="_blank">
+      <div class="proj-thumb">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/207e96246992505.Y3JvcCwzODM1LDMwMDAsMCww.jpg" alt="OIXO Posters"/>
+        <div class="proj-overlay"></div>
+        <span class="proj-tag">Social Media · 2025</span>
+      </div>
+      <div class="proj-body">
+        <div>
+          <div class="proj-title">OIXO Brandings Posters</div>
+          <div class="proj-cat">Social Media Design</div>
+        </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+    </a>
+
+    <a class="proj" href="https://www.behance.net/gallery/214750765/theyyam-pottanthullal-kaliyattam" target="_blank">
+      <div class="proj-thumb">
+        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/1a47d1214750765.Y3JvcCwxODQxLDE0NDAsMTA0LDE5NQ.png" alt="Theyyam"/>
+        <div class="proj-overlay"></div>
+        <span class="proj-tag">Illustration · 2024</span>
+      </div>
+      <div class="proj-body">
+        <div>
+          <div class="proj-title">Theyyam · Kaliyattam</div>
+          <div class="proj-cat">Cultural Illustration</div>
+        </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="reveal">
+    <div class="section-eyebrow">What I Do</div>
+    <h2 class="section-title">My <span>Services</span></h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <span class="service-icon">🎨</span>
+      <div class="service-name">Graphic Design</div>
+      <p class="service-desc">Brand identities, logos, social media graphics, posters, packaging — visual work that makes businesses unforgettable.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <span class="service-icon">🎬</span>
+      <div class="service-name">Video Editing</div>
+      <p class="service-desc">Professional video editing with color grading, motion text, transitions, and voiceover integration for ads & promos.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <span class="service-icon">🤖</span>
+      <div class="service-name">AI Video Creation</div>
+      <p class="service-desc">Cinematic AI-generated commercials and reels — hyper-realistic product ads, brand films & social content.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <span class="service-icon">✨</span>
+      <div class="service-name">Motion Design</div>
+      <p class="service-desc">Animated ads, kinetic typography, motion graphics and text announcements that capture attention instantly.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <span class="service-icon">📦</span>
+      <div class="service-name">Packaging Design</div>
+      <p class="service-desc">Eye-catching product packaging and label design that stands out and communicates brand values clearly.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <span class="service-icon">📱</span>
+      <div class="service-name">Social Media Content</div>
+      <p class="service-desc">Complete social media creatives — static posts, stories, reels and ad campaigns designed to maximise engagement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-left reveal">
+    <div class="section-eyebrow">About Me</div>
+    <h2 class="section-title">The <span>Designer</span><br>behind the work</h2>
+    <p>I'm Siyad S — a Graphic Designer, Motion Designer, AI Video Editor and Video Editor with 3+ years of hands-on creative experience. I work at Al Madina, Fujairah, UAE, while taking on freelance projects globally under my brand OIXO Brandings.</p>
+    <p>My work spans brand identity, cinematic AI video production, cultural illustration, and high-impact social media design. I bring ideas to life with purpose, precision, and a deep passion for the craft.</p>
+
+    <div class="about-meta">
+      <div class="about-meta-row"><span>Location</span>Al Madina, Fujairah — UAE</div>
+      <div class="about-meta-row"><span>Origin</span>Palakkad, Kerala, India</div>
+      <div class="about-meta-row"><span>Experience</span>3+ Years</div>
+      <div class="about-meta-row"><span>Status</span>Available — Freelance & Full-time</div>
+      <div class="about-meta-row"><span>Brand</span>OIXO Brandings</div>
+      <div class="about-meta-row"><span>WhatsApp</span>+971 55 993 5126</div>
+    </div>
+
+    <div class="skills-wrap">
+      <div class="skills-label">// Tools & Skills</div>
+      <div class="skills-tags">
+        <span class="stag">Adobe Illustrator</span>
+        <span class="stag">Photoshop</span>
+        <span class="stag">Premiere Pro</span>
+        <span class="stag">After Effects</span>
+        <span class="stag">Figma</span>
+        <span class="stag">AI Video Tools</span>
+        <span class="stag">Motion Design</span>
+        <span class="stag">Brand Identity</span>
+        <span class="stag">Packaging</span>
+        <span class="stag">Social Media Ads</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-photo-wrap reveal">
+    <img
+      src="https://pps.services.adobe.com/api/profile/9C1A06435F9E254C0A495F86@AdobeID/image/d3758512-659a-4a90-9a6e-bbd30d2948cb/276"
+      alt="Siyad S"
+      onerror="this.style.background='#111';this.style.minHeight='300px'"
+    />
+    <div class="about-photo-label">Siyad S — Fujairah, UAE · OIXO Brandings</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-bg">Hire Me</div>
+  <div class="section-eyebrow">Get In Touch</div>
+  <h2 class="section-title reveal">Let's create something<br><span>remarkable</span></h2>
+  <p class="reveal">
+    Open for brand projects, AI video commissions, freelance & full-time roles.<br>
+    Reach out — I reply fast on WhatsApp!
+  </p>
+
+  <div class="contact-cards reveal">
+    <a href="https://wa.me/971559935126?text=Hi%20Siyad!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." target="_blank" class="contact-card wa">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp — +971 55 993 5126
+    </a>
+    <a href="https://www.behance.net/siyadsiyu2" target="_blank" class="contact-card behance">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 1.202.775 1.803 1.955 1.803.865 0 1.463-.405 1.712-1.253L23.726 17zm-5.73-5.765c-.023-.865-.572-1.68-1.64-1.68-1.125 0-1.688.68-1.796 1.68H17.996zM9.25 17c-.442 1.297-2.029 3-5.101 3C.574 20 0 18.25 0 14.325 0 10.415 2.325 8.405 5.466 8.405c3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H2.97c.13 1.202.775 1.803 1.955 1.803.865 0 1.463-.405 1.712-1.253L9.25 17zm-5.73-5.765c-.023-.865-.572-1.68-1.64-1.68-1.125 0-1.688.68-1.796 1.68H3.52z"/></svg>
+      Behance Portfolio
+    </a>
+    <a href="https://www.linkedin.com/in/siyad-s-678625260/" target="_blank" class="contact-card linkedin">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://www.instagram.com/oixo_brandings" target="_blank" class="contact-card insta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      @oixo_brandings
+    </a>
+    <a href="https://linktr.ee/s1yadd" target="_blank" class="contact-card">
+      🌐 All Links — Linktree
+    </a>
+  </div>
+
+  <div class="contact-divider"></div>
+  <div class="social-row reveal">
+    <a href="https://www.behance.net/siyadsiyu2" target="_blank" class="social-link">Behance ↗</a>
+    <a href="https://www.linkedin.com/in/siyad-s-678625260/" target="_blank" class="social-link">LinkedIn ↗</a>
+    <a href="https://www.instagram.com/oixo_brandings" target="_blank" class="social-link">Instagram ↗</a>
+    <a href="https://in.pinterest.com/" target="_blank" class="social-link">Pinterest ↗</a>
+    <a href="https://linktr.ee/s1yadd" target="_blank" class="social-link">Linktree ↗</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Siyad S — OIXO Brandings</span>
+  <span>Graphic Designer · Fujairah, UAE ✦</span>
+</footer>
+
+<script>
+// Custom cursor
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+
+// Nav scroll
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
